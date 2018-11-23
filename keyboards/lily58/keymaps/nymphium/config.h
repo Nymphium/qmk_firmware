@@ -26,9 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
-#define MASTER_RIGHT
-// #define EE_HANDS
+#define MASTER_LEFT
+// #define MASTER_RIGHT
 
 // Underglow
 /*
@@ -37,3 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 */
+
+#define MOUSEKEY_DELAY 10
+#define MOUSEKEY_INTERVAL 10
+#define MOUSEKEY_MAX_SPEED 3
+#define MOUSEKEY_TIME_TO_MAX 30
