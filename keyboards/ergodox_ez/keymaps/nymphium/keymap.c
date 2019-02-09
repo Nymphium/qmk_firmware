@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
+#define _BASE 0 // default layer
 #define _LOWER 1
 #define _SHIFT 2
 #define _LSHIFT 3
@@ -22,6 +22,11 @@
       return false; \
       break;
 
+#define WAIT_PRESSING(record) \
+  while (timer_elapsed(record->event.time) <= TAPPING_TERM) \
+    if (!record->event.pressed)  break; \
+  if (record->event.pressed)
+
 #define led_on(x) ergodox_right_led_##x##_on()
 #define led_off(x) ergodox_right_led_##x##_off()
 
@@ -37,29 +42,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|' / Cmd |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-
- [BASE] = LAYOUT_ergodox(
+ [_BASE] = LAYOUT_ergodox( // {{{
   // left hand
    XF86, KC_1, KC_2,KC_3,   KC_4, KC_5,KC_6,
    KC_TAB, KC_Q, KC_W,KC_E,   KC_R, KC_T,KC_Y,
@@ -77,15 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Y, KC_Y,KC_U,    KC_I,KC_O,KC_P,   KC_BSLS,
         KC_H,KC_J,    KC_K,KC_L,KC_MHEN,___,
   KC_B, KC_N,KC_M,    ___, ___, ___,    ___,
-  KC_LCTRL,___, ___, ___,    TG(_OMOUSE),
+  KC_LCTRL,___, ___, ___,    OMOUSE,
 
   // right thumb
   KC_MS_U,        KC_MS_R,
   KC_MS_D,
   KC_MS_L,MOUSE,  KC_BSPC
-)
+) // }}}
 
-,[_LOWER] = LAYOUT_ergodox(
+,[_LOWER] = LAYOUT_ergodox( // {{{
   // left hand
   ___,         KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,   ___,
   ___,         KC_AT,    KC_PLUS,  KC_ESC,   KC_SCLN,  KC_CIRC, KC_6,
@@ -107,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___,      ___,
   ___,
   ___,      ___, KC_DELETE
-)
+) // }}}
 
-,[_SHIFT] = LAYOUT_ergodox(
+,[_SHIFT] = LAYOUT_ergodox( // {{{
   // left hand
   ___,    ___,   KC_DQT,  KC_HASH, KC_DLR, ___,  ___,
   ___,    ___,   ___,     ___,  ___,  ___,  ___,
@@ -131,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,
   ___,
   ___, ___, ___
-)
+) // }}}
 
-,[_LSHIFT] = LAYOUT_ergodox(
+,[_LSHIFT] = LAYOUT_ergodox( // {{{
   // left hand
   ___,    ___,   ___,  ___, ___, ___,  ___,
   ___,    KC_GRV,  KC_ASTR,     ___, KC_COLON,  KC_TILDE,  KC_7,
@@ -155,9 +138,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,
   ___,
   ___, ___, ___
-)
+) // }}}
 
-,[_MOUSE] = LAYOUT_ergodox(
+,[_MOUSE] = LAYOUT_ergodox( // {{{
   // left hand
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
@@ -179,9 +162,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,
   ___,
   ___, ___, ___
-)
+) // }}}
 
-,[_OMOUSE] = LAYOUT_ergodox(
+,[_OMOUSE] = LAYOUT_ergodox( // {{{
   // left hand
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
@@ -200,12 +183,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,  ___, ___,
                 KC_BTN2, ___,     ___,     ___, ___,
 
-  ___, ___,
+  OMOUSE, ___,
   ___,
   ___, WHEEL, KC_BTN1
-)
+) // }}}
 
-,[_WHEEL] = LAYOUT_ergodox(
+,[_WHEEL] = LAYOUT_ergodox( // {{{
   // left hand
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
@@ -227,9 +210,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,
   ___,
   ___, ___, ___
-)
+) // }}}
 
-,[_XF86] = LAYOUT_ergodox(
+,[_XF86] = LAYOUT_ergodox( // {{{
   // left hand
   ___,   KC_MUTE,  KC_VOLD,  KC_VOLU,  ___, ___,  ___,
   ___,    ___,   ___,     ___,  ___,  ___,  ___,
@@ -251,20 +234,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,
   ___,
   ___, ___, ___
-)
+) // }}}
 };
 
+
+// state flags {{{
 static bool middle_tap1;
 static bool henkan;
 static bool shift;
-
 static bool modkeyed = false;
+static bool omouse = false;
+// }}}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
   switch (keycode) {
+    // shift (+ MOD) + key workaround {{{
     case KC_LGUI:
     case KC_LALT:
+    case KC_LCTRL:
       if (record->event.pressed) {
         register_code(keycode);
         modkeyed = true;
@@ -276,13 +263,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_GRV:
     case KC_EQL:
-    /* case KC_ASTR: */
     case KC_7:
       if (record->event.pressed) {
         unregister_code(KC_LSFT);
         register_code(keycode);
       } else {
         if (shift) register_code(KC_LSFT);
+        unregister_code(keycode);
       }
       return true;
 
@@ -296,7 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           update_tri_layer(_LOWER, _SHIFT, _LSHIFT);
         }
       } else {
-        if (!modkeyed) {
+        if (shift) {
           shift = false;
           layer_off(_SHIFT);
           update_tri_layer(_LOWER, _SHIFT, _LSHIFT);
@@ -304,8 +291,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LSFT);
       }
       return false;
+    // }}}
 
-    case LOWER:
+    case LOWER: // {{{
       if (record->event.pressed) {
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _SHIFT, _LSHIFT);
@@ -314,38 +302,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _SHIFT, _LSHIFT);
       }
       return false;
+    // }}}
 
-    case RESET:
+    case OMOUSE: // {{{
       if (record->event.pressed) {
-        led_on(1);
-        led_on(2);
-        led_on(3);
-      } else {
-        reset_keyboard();
-      }
-
-      return false;
-
-    case WHEEL:
-      if (record->event.pressed) {
-        if (middle_tap1) {
-          layer_on(_WHEEL);
-          middle_tap1 = false;
+        if (omouse) {
+          omouse = false;
+          layer_off(_OMOUSE);
         } else {
-          register_code(KC_BTN3);
-          middle_tap1 = true;
+          omouse = true;
+          layer_on(_OMOUSE);
+        }
+      }
+      return false;
+    // }}}
+
+    case WHEEL: // {{{
+      if (record->event.pressed) {
+        register_code(KC_BTN3);
+        middle_tap1 = true;
+
+        WAIT_PRESSING(record) {
+          unregister_code(KC_BTN3);
+          middle_tap1 = false;
+
+          if (omouse) layer_off(_OMOUSE);
+          layer_on(_WHEEL);
         }
       } else {
-        led_off(1);
         if (middle_tap1) {
           unregister_code(KC_BTN3);
+          middle_tap1 = false;
         } else {
+          if (omouse) layer_on(_OMOUSE);
           layer_off(_WHEEL);
         }
       }
-
       return false;
+    // }}}
 
+    // 変換/無変換 {{{
     case KC_MHEN:
       if (record->event.pressed) {
         if(henkan) led_off(2);
@@ -354,7 +350,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(keycode);
       }
-
       return false;
 
     case KC_HENK:
@@ -366,8 +361,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         led_on(2);
         unregister_code(keycode);
       }
-
       return false;
+    // }}}
+
+    case RESET: // {{{
+      if (record->event.pressed) {
+        led_on(1);
+        led_on(2);
+        led_on(3);
+      } else {
+        reset_keyboard();
+      }
+      return false;
+    // }}}
 
     TMP_MODE(XF86);
     TMP_MODE(MOUSE);
@@ -391,7 +397,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
   uint8_t layer = biton32(state);
   switch (layer) {
-    case BASE:
+    case _BASE:
     case _SHIFT:
     case _LSHIFT:
     case _LOWER:
