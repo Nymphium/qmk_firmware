@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___,         KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,   ___,
   ___,         KC_AT,    KC_PLUS,  KC_ESC,   KC_SCLN,  KC_CIRC, KC_6,
   ___,         KC_MINS,  KC_PERC,  KC_BSLS,  KC_SLSH,  KC_QUOT,
-  ___,         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,  ___,
+  ___,         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,  KC_6,
   ___,         ___,      ___,      ___,      ___,
 
                                                        ___,     ___,
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___,    ___,   ___,  ___, ___, ___,  ___,
   ___,    KC_GRV,  KC_ASTR,     ___, KC_COLON,  KC_TILDE,  KC_7,
   ___,    KC_EQL,   ___,     KC_UNDS,  KC_PIPE,  KC_AMPR,
-  ___,    ___,   ___,     ___,  ___,  ___,  ___,
+  ___,    ___,   ___,     ___,  ___,  ___,  KC_7,
   ___,    ___,   ___,     ___,  ___,
                               // left thumb
                                     ___, ___,
