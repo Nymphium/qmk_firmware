@@ -31,10 +31,9 @@
 enum custom_keycodes {
   EPRM = SAFE_RANGE,
   LOWER,
-  SHIFT,
   LSHIFT,
   MOUSE,
-  WHEEL,
+  MIDDLE,
   OMOUSE,
   XF86
 };
@@ -144,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
-  ___,    ___,   KC_BTN1, WHEEL, KC_BTN2,
+  ___,    ___,   KC_BTN1, MIDDLE, KC_BTN2,
 
                                     ___, ___,
                                          ___,
@@ -183,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   OMOUSE, ___,
   ___,
-  ___, WHEEL, KC_BTN1
+  ___, MIDDLE, KC_BTN1
 ) // }}}
 
 ,[_WHEEL] = LAYOUT_ergodox( // {{{
@@ -241,7 +240,6 @@ static bool henkan;
 static bool shift;
 static bool modkeyed = false;
 static bool omouse = false;
-static bool scroll = false;
 // }}}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -315,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     // }}}
 
-    case WHEEL: // {{{
+    case MIDDLE: // {{{
       if (record->event.pressed) {
         register_code(KC_BTN3);
 
@@ -324,15 +322,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_BTN3);
         if (omouse) layer_off(_OMOUSE);
         layer_on(_WHEEL);
-        scroll = true;
       } else {
-        if (scroll) {
-          if (omouse) layer_on(_OMOUSE);
-          layer_off(_WHEEL);
-        } else {
-          unregister_code(KC_BTN3);
-        }
-        scroll = false;
+        if (omouse) layer_on(_OMOUSE);
+        layer_off(_WHEEL);
       }
       return false;
     // }}}
