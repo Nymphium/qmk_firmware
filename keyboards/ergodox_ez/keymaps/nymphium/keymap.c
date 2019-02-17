@@ -23,9 +23,7 @@
       break;
 
 #define WAIT_PRESSING(record) \
-  while (timer_elapsed(record->event.time) <= TAPPING_TERM) \
-    if (!record->event.pressed)  break; \
-  if (record->event.pressed)
+  while (timer_elapsed(record->event.time) <= TAPPING_TERM) {}
 
 #define led_on(x) ergodox_right_led_##x##_on()
 #define led_off(x) ergodox_right_led_##x##_off()
@@ -144,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // left hand
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
-  ___,    ___,   ___,  ___,  WHEEL,  ___,
+  ___,    ___,   ___,  ___,  ___,  ___,
   ___,    ___,   ___,  ___,  ___,  ___,  ___,
   ___,    ___,   KC_BTN1, WHEEL, KC_BTN2,
 
@@ -239,11 +237,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // state flags {{{
-static bool middle_tap1;
 static bool henkan;
 static bool shift;
 static bool modkeyed = false;
 static bool omouse = false;
+static bool scroll = false;
 // }}}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -320,23 +318,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case WHEEL: // {{{
       if (record->event.pressed) {
         register_code(KC_BTN3);
-        middle_tap1 = true;
 
-        WAIT_PRESSING(record) {
-          unregister_code(KC_BTN3);
-          middle_tap1 = false;
+        WAIT_PRESSING(record);
 
-          if (omouse) layer_off(_OMOUSE);
-          layer_on(_WHEEL);
-        }
+        unregister_code(KC_BTN3);
+        if (omouse) layer_off(_OMOUSE);
+        layer_on(_WHEEL);
+        scroll = true;
       } else {
-        if (middle_tap1) {
-          unregister_code(KC_BTN3);
-          middle_tap1 = false;
-        } else {
+        if (scroll) {
           if (omouse) layer_on(_OMOUSE);
           layer_off(_WHEEL);
+        } else {
+          unregister_code(KC_BTN3);
         }
+        scroll = false;
       }
       return false;
     // }}}
@@ -411,7 +407,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     case _MOUSE:
     case _OMOUSE:
       led_on(3);
-      middle_tap1 = false;
       break;
 
     case _WHEEL:
