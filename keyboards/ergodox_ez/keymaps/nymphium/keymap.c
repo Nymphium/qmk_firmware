@@ -41,28 +41,28 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BASE] = LAYOUT_ergodox( // {{{
   // left hand
-   XF86, KC_1, KC_2,KC_3,   KC_4, KC_5,KC_6,
-   KC_TAB, KC_Q, KC_W,KC_E,   KC_R, KC_T,KC_Y,
-   KC_ENT, KC_A, KC_S,KC_D,   KC_F, KC_G,
-   KC_LSFT,KC_Z, KC_X,KC_C,   KC_V, KC_B,KC_Y,
-   ___, ___,KC_LGUI,KC_LALT,LOWER,
+   XF86,    KC_1, KC_2,    KC_3,    KC_4,     KC_5,  KC_6,
+   KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,     KC_T,  KC_Y,
+   KC_ENT,  KC_A, KC_S,    KC_D,    KC_F,     KC_G,
+   KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,     KC_B,  KC_Y,
+   ___,     ___,  KC_LGUI, KC_LALT, LOWER,
 
-                                                 // left thumb
-                                         KC_LEFT,  KC_UP,
-                                                          KC_DOWN,
-                                         KC_SPC,   LOWER, KC_RIGHT,
+                                                  // left thumb
+                                    KC_LEFT,  KC_UP,
+                                                     KC_DOWN,
+                                    KC_SPC,   LOWER, KC_RIGHT,
 
   // right hand
-  RESET,KC_7,KC_8,    KC_9,KC_0,___,    ___,
-  KC_Y, KC_Y,KC_U,    KC_I,KC_O,KC_P,   KC_BSLS,
-        KC_H,KC_J,    KC_K,KC_L,KC_MHEN,___,
-  KC_B, KC_N,KC_M,    ___, ___, ___,    ___,
-  KC_LCTRL,___, ___, ___,    OMOUSE,
+  RESET,    KC_7,     KC_8, KC_9, KC_0, ___,     ___,
+  KC_Y,     KC_Y,     KC_U, KC_I, KC_O, KC_P,    KC_BSLS,
+            KC_H,     KC_J, KC_K, KC_L, KC_MHEN, ___,
+  KC_B,     KC_N,     KC_M, ___,  ___,  ___,     ___,
+            KC_LCTRL, ___,  ___,  ___,  OMOUSE,
 
   // right thumb
-  KC_MS_U,        KC_MS_R,
+  KC_MS_U,            KC_MS_R,
   KC_MS_D,
-  KC_MS_L,MOUSE,  KC_BSPC
+  KC_MS_L,  MOUSE,    KC_BSPC
 ) // }}}
 
 ,[_LOWER] = LAYOUT_ergodox( // {{{
@@ -115,11 +115,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ,[_LSHIFT] = LAYOUT_ergodox( // {{{
   // left hand
-  ___,    ___,   ___,  ___, ___, ___,  ___,
-  ___,    KC_GRV,  KC_ASTR,     ___, KC_COLON,  KC_TILDE,  KC_7,
-  ___,    KC_EQL,   ___,     KC_UNDS,  KC_PIPE,  KC_AMPR,
-  ___,    ___,   ___,     ___,  ___,  ___,  KC_7,
-  ___,    ___,   ___,     ___,  ___,
+  ___,    ___,    ___,     ___,     ___,      ___,      ___,
+  ___,    KC_GRV, KC_ASTR, ___,     KC_COLON, KC_TILDE, KC_7,
+  ___,    KC_EQL, ___,     KC_UNDS, KC_PIPE,  KC_AMPR,
+  ___,    ___,    ___,     ___,     ___,      ___,      KC_7,
+  ___,    ___,    ___,     ___,     ___,
                               // left thumb
                                     ___, ___,
                                          ___,
@@ -127,10 +127,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   ___, ___, KC_LCBR, KC_RCBR, ___,  ___,  ___,
-  ___, ___, KC_LT, KC_GT, ___,  ___,  ___,
-       ___, ___, ___, ___,  ___,  ___,
-  ___, ___,  ___, ___, ___,  ___,  ___,
-  ___, ___,  ___, ___, ___,
+  ___, ___, KC_LT,   KC_GT,   ___,  ___,  ___,
+       ___, ___,     ___,     ___,  ___,  ___,
+  ___, ___, ___,     ___,     ___,  ___,  ___,
+  ___, ___, ___,     ___,     ___,
 
   ___, ___,
   ___,
@@ -139,10 +139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ,[_MOUSE] = LAYOUT_ergodox( // {{{
   // left hand
-  ___,    ___,   ___,  ___,  ___,  ___,  ___,
-  ___,    ___,   ___,  ___,  ___,  ___,  ___,
-  ___,    ___,   ___,  ___,  ___,  ___,
-  ___,    ___,   ___,  ___,  ___,  ___,  ___,
+  ___,    ___,   ___,     ___,    ___,     ___,  ___,
+  ___,    ___,   ___,     ___,    ___,     ___,  ___,
+  ___,    ___,   ___,     ___,    ___,     ___,
+  ___,    ___,   ___,     ___,    ___,     ___,  ___,
   ___,    ___,   KC_BTN1, MIDDLE, KC_BTN2,
 
                                     ___, ___,
@@ -226,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,  ___, ___, KC_BRID, KC_BRIU,  ___,
        ___, ___, ___, ___,  ___,  ___,
   ___, ___,  ___, ___, ___,  ___,  ___,
-            ___, KC_PSCR,  ___, ___, ___,
+       ___, KC_PSCR,  ___, ___, ___,
 
   ___, ___,
   ___,
