@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "keymap_jp.h"
 
 #define _BASE 0 // default layer
 #define _LOWER 1
@@ -68,8 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,[_LOWER] = LAYOUT_ergodox( // {{{
   // left hand
   ___,         KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,   ___,
-  ___,         KC_AT,    KC_PLUS,  KC_ESC,   KC_SCLN,  KC_CIRC, KC_6,
-  ___,         KC_MINS,  KC_PERC,  KC_BSLS,  KC_SLSH,  KC_QUOT,
+  ___,         JP_AT,    JP_PLUS,  KC_ESC,   KC_SCLN,  JP_CIRC, KC_6,
+  ___,         KC_MINS,  KC_PERC,  JP_BSLS,  KC_SLSH,  JP_QUOT,
   ___,         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,  KC_6,
   ___,         ___,      ___,      ___,      ___,
 
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                ___,    ___,     ___,
 
   // right hand
-  ___,         KC_F7,    KC_LBRC,  KC_RBRC,  KC_F12,   ___,     ___,
+  ___,         KC_F7,    JP_LBRC,  JP_RBRC,  KC_F12,   ___,     ___,
   ___,         ___,      KC_DOT,   KC_COMMA, KC_HOME,  KC_END,  ___,
                KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_HENK, ___,
   ___,         KC_F11,   KC_PGUP,  KC_PGDN,  ___,      ___,     ___,
@@ -91,22 +92,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ,[_SHIFT] = LAYOUT_ergodox( // {{{
   // left hand
-  ___,    ___,   KC_DQT,  KC_HASH, KC_DLR, ___,  ___,
-  ___,    ___,   ___,     ___,  ___,  ___,  ___,
-  ___,    ___,   ___,     ___,  ___,  ___,
-  ___,    ___,   ___,     ___,  ___,  ___,  ___,
-  ___,    ___,   ___,     ___,  ___,
+  ___,  ___,   ___,  ___,  ___, ___,  ___,
+  ___,  ___,   ___,  ___,  ___,  ___,  ___,
+  ___,  ___,   ___,  ___,  ___,  ___,
+  ___,  ___,   ___,  ___,  ___,  ___,  ___,
+  ___,  ___,   ___,  ___,  ___,
 
                                     ___, ___,
                                          ___,
                                ___, ___, ___,
 
   // right hand
-  ___, ___, KC_LPRN, KC_RPRN, KC_QUES,  ___,  ___,
-  ___, ___,  ___, ___, ___,  ___,  ___,
-       ___, ___, ___, ___,  ___,  ___,
-  ___, ___,  ___, ___, ___,  ___,  ___,
-  ___, ___,  ___, ___, ___,
+  ___, ___, ___, ___, JP_QUES, ___,  ___,
+  ___, ___, ___, ___, ___,     ___,  ___,
+       ___, ___, ___, ___,     ___,  ___,
+  ___, ___, ___, ___, ___,     ___,  ___,
+  ___, ___, ___, ___, ___,
 
   ___, ___,
   ___,
@@ -116,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,[_LSHIFT] = LAYOUT_ergodox( // {{{
   // left hand
   ___,    ___,    ___,     ___,     ___,      ___,      ___,
-  ___,    KC_GRV, KC_ASTR, ___,     KC_COLON, KC_TILDE, KC_7,
-  ___,    KC_EQL, ___,     KC_UNDS, KC_PIPE,  KC_AMPR,
+  ___,    JP_GRV, JP_ASTR, ___,     JP_COLN, JP_TILD, KC_7,
+  ___,    JP_EQL, ___,     JP_UNDS, JP_PIPE,  JP_AMPR,
   ___,    ___,    ___,     ___,     ___,      ___,      KC_7,
   ___,    ___,    ___,     ___,     ___,
                               // left thumb
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                ___, ___, ___,
 
   // right hand
-  ___, ___, KC_LCBR, KC_RCBR, ___,  ___,  ___,
+  ___, ___, JP_LCBR, JP_RCBR, ___,  ___,  ___,
   ___, ___, KC_LT,   KC_GT,   ___,  ___,  ___,
        ___, ___,     ___,     ___,  ___,  ___,
   ___, ___, ___,     ___,     ___,  ___,  ___,
@@ -257,9 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case KC_GRV:
-    case KC_EQL:
-    case KC_7:
+    case JP_COLN:
       if (record->event.pressed) {
         unregister_code(KC_LSFT);
         register_code(keycode);
