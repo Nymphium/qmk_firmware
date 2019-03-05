@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_LSHIFT] = LAYOUT( \
-  _______, _______, _______, _______, _______,  _______,                    _______, _______, KC_LCBR, KC_RCBR, _______, _______, \
+  _______, _______, _______, _______, _______,  _______,                    _______, _______, JP_LCBR, JP_RCBR, _______, _______, \
   _______, JP_GRV,  JP_ASTR, _______, JP_COLN,  JP_TILD,                    _______, _______, KC_LT,   KC_GT,   _______, _______, \
   _______, JP_EQL,  _______, JP_UNDS, JP_PIPE,  JP_AMPR,                    _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______,  _______, KC_7,     _______, _______, _______, _______, _______, _______, _______, \
@@ -190,10 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-  case KC_GRV:
-  case KC_EQL:
-  case KC_7:
-  case KC_QUOT:
+  case JP_COLN:
     if (record->event.pressed) {
       unregister_code(KC_LSFT);
       register_code(keycode);
