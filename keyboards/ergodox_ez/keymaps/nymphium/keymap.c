@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_BSPC,KC_LCTRL,KC_LEFT,KC_DOWN,KC_RIGHT
 
   // right thumb
-  KC_MS_U,        KC_MS_R,
+  KC_MS_U,            KC_MS_R,
   KC_MS_D,
   KC_BTN1,WHEEL,  KC_BTN2
 )
@@ -114,11 +114,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ,[_LSHIFT] = LAYOUT_ergodox( // {{{
   // left hand
-  ___,    ___,   ___,  ___, ___, ___,  ___,
-  ___,    KC_GRV,  KC_ASTR,     ___, KC_COLON,  KC_TILDE,  KC_7,
-  ___,    KC_EQL,   ___,     KC_UNDS,  KC_PIPE,  KC_AMPR,
-  ___,    ___,   ___,     ___,  ___,  ___,  KC_7,
-  ___,    ___,   ___,     ___,  ___,
+  ___,    ___,    ___,     ___,     ___,      ___,      ___,
+  ___,    KC_GRV, KC_ASTR, ___,     KC_COLON, KC_TILDE, KC_7,
+  ___,    KC_EQL, ___,     KC_UNDS, KC_PIPE,  KC_AMPR,
+  ___,    ___,    ___,     ___,     ___,      ___,      KC_7,
+  ___,    ___,    ___,     ___,     ___,
                               // left thumb
                                     ___, ___,
                                          ___,
@@ -126,10 +126,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // right hand
   ___, ___, KC_LCBR, KC_RCBR, ___,  ___,  ___,
-  ___, ___, KC_LT, KC_GT, ___,  ___,  ___,
-       ___, ___, ___, ___,  ___,  ___,
-  ___, ___,  ___, ___, ___,  ___,  ___,
-  ___, ___,  ___, ___, ___,
+  ___, ___, KC_LT,   KC_GT,   ___,  ___,  ___,
+       ___, ___,     ___,     ___,  ___,  ___,
+  ___, ___, ___,     ___,     ___,  ___,  ___,
+  ___, ___, ___,     ___,     ___,
 
   ___, ___,
   ___,
@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___,  ___, ___, ___, KC_BRID, KC_BRIU,
        ___, ___, ___, ___,  ___,  ___,
   ___, ___,  ___, ___, ___,  ___,  ___,
-            ___, KC_PSCR,  ___, ___, ___,
+       ___, KC_PSCR,  ___, ___, ___,
 
   ___, ___,
   ___,
