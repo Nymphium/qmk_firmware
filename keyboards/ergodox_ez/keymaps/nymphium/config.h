@@ -1,4 +1,49 @@
 #pragma once
-#define TAPPING_TERM    400
-#define RETRO_TAPPING
-#define PERMISSIVE_HOLD
+
+#ifdef TAPPING_TERM
+#    undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 400
+
+#ifdef MOUSEKEY_INTERVAL
+#    undef MOUSEKEY_INTERVAL
+#endif
+#define MOUSEKEY_INTERVAL 20
+
+#ifdef MOUSEKEY_DELAY
+#    undef MOUSEKEY_DELAY
+#endif
+#define MOUSEKEY_DELAY 0
+
+#ifdef MOUSEKEY_TIME_TO_MAX
+#    undef MOUSEKEY_TIME_TO_MAX
+#endif
+#define MOUSEKEY_TIME_TO_MAX 70
+
+#ifdef MOUSEKEY_MAX_SPEED
+#    undef MOUSEKEY_MAX_SPEED
+#endif
+#define MOUSEKEY_MAX_SPEED 4
+
+#ifdef MOUSEKEY_WHEEL_DELAY
+#    undef MOUSEKEY_WHEEL_DELAY
+#endif
+#define MOUSEKEY_WHEEL_DELAY 10
+
+#ifdef MOUSEKEY_WHEEL_MAX_SPEED
+#    undef MOUSEKEY_WHEEL_MAX_SPEED
+#endif
+#define MOUSEKEY_WHEEL_MAX_SPEED 2
+
+#ifdef MOUSEKEY_WHEEL_TIME_TO_MAX
+#    undef MOUSEKEY_WHEEL_TIME_TO_MAX
+#endif
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 255
+
+#ifndef RETRO_TAPPING
+#    define RETRO_TAPPING
+#endif
+
+#ifndef PERMISSIVE_HOLD
+#    define PERMISSIVE_HOLD
+#endif
