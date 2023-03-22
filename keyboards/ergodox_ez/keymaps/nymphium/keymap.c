@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right thumb
   KC_MS_U,            KC_MS_R,
   KC_MS_D,
-  KC_BTN1,WHEEL,  KC_BTN2
+  KC_BTN1,MIDDLE,  KC_BTN2
 )
 
 ,[_LOWER] = LAYOUT_ergodox( // {{{
@@ -250,19 +250,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     // }}}
 
-    case OMOUSE: // {{{
-      if (record->event.pressed) {
-        if (omouse) {
-          omouse = false;
-          layer_off(_OMOUSE);
-        } else {
-          omouse = true;
-          layer_on(_OMOUSE);
-        }
-      }
-      return false;
-    // }}}
-
     case MIDDLE: // {{{
       if (record->event.pressed) {
         register_code(KC_BTN3);
@@ -270,10 +257,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         WAIT_PRESSING(record);
 
         unregister_code(KC_BTN3);
-        if (omouse) layer_off(_OMOUSE);
         layer_on(_WHEEL);
       } else {
-        if (omouse) layer_on(_OMOUSE);
         layer_off(_WHEEL);
       }
       return false;
