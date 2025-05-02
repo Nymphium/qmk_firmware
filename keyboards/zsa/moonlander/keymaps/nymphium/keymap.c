@@ -1,0 +1,125 @@
+/* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
+ * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+ * Copyright 2025 @Nymphium
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include QMK_KEYBOARD_H
+#include "version.h"
+#include "keymap_japanese.h"
+
+enum layers {
+    _BASE,
+    _LOWER,
+    _SHIFT,
+    _LSHIFT,
+    _WHEEL,
+    _XF86,
+};
+
+#define MIDDLE LT(_WHEEL, KC_BTN3)
+#define XF86 MO(_XF86)
+#define LOWER MO(_LOWER)
+
+// clang-format off
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_BASE] = LAYOUT_moonlander(
+        XF86,    KC_1,    KC_2,      KC_3,     KC_4,    KC_5,    KC_6,                         KC_MS_U,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  _______,
+        KC_TAB,  KC_Q,    KC_W,      KC_E,     KC_R,    KC_T,    KC_Y,                         KC_MS_U, KC_MS_R,    KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,
+        KC_ENT,  KC_A,    KC_S,      KC_D,     KC_F,    KC_G, _______,                         KC_MS_L, KC_MS_D,    KC_H,    KC_J,    KC_K,    KC_L,  JP_MHEN,
+        KC_LSFT, KC_Z,    KC_X,      KC_C,     KC_V,    KC_B,                                              KC_B,    KC_N,    KC_M, _______, _______,  _______,
+        KC_LCTL, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,          KC_LGUI,                         _______,          KC_BSPC, KC_LCTL, _______, _______,  _______,
+                                                     KC_LALT, LOWER,    KC_SPC,       KC_BTN1,  MIDDLE,  KC_BTN2
+    ),
+    [_LOWER] = LAYOUT_moonlander(
+        _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, _______,                         _______, _______,   KC_F7, JP_LBRC, JP_RBRC,  KC_F12, _______,
+        _______,   JP_AT, JP_PLUS,  KC_ESC, KC_SCLN, JP_CIRC,    KC_6,                         _______, _______, _______,  KC_DOT,KC_COMMA, KC_HOME,  KC_END,
+        _______, KC_MINS, KC_PERC, JP_BSLS, KC_SLSH, JP_QUOT,    KC_6,                         _______, _______, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, JP_HENK,
+        _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                                            KC_F11, _______, KC_PGUP, KC_PGDN, _______, _______,
+        _______, _______, _______, _______, _______,          _______,                         _______,         KC_DELETE,_______, _______, _______, _______,
+                                                     _______, _______, _______,       _______, _______, _______
+    ),
+    [_SHIFT] = LAYOUT_moonlander(
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,          _______,                         _______,          _______, _______, _______, _______, _______,
+                                                     _______, _______, _______,       _______, _______, _______
+    ),
+    [_LSHIFT] = LAYOUT_moonlander(
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, JP_LCBR, JP_RCBR, _______, _______, _______,
+        _______, JP_GRV, JP_ASTR, _______, JP_COLN, JP_TILD,     KC_7,                         _______, _______, _______,   KC_LT,   KC_GT, _______, _______,
+        _______, JP_EQL, _______, JP_UNDS, JP_PIPE,  JP_AMPR, _______,                         _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,         _______,                          _______,          _______, _______, _______, _______, _______,
+                                                     _______, _______, _______,       _______, _______, _______
+    ),
+    [_WHEEL] = LAYOUT_moonlander(
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,                         KC_WH_U, KC_WH_R, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,                         KC_WH_L, KC_WH_D, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,         _______,                          _______,          _______, _______, _______, _______, _______,
+                                                    _______, _______, _______,        _______, _______, _______
+    ),
+    [_XF86] = LAYOUT_moonlander(
+        _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, KC_PSCR,
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, KC_BRID, KC_BRIU,
+        _______, _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,         _______,                          _______,          _______, _______, _______, _______, _______,
+                                                    _______, _______, _______,        _______, _______, _______
+    ),
+};
+// clang-format on
+
+const key_override_t *key_overrides[] = {
+    &ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_QUES),
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _LOWER, _SHIFT, _LSHIFT);
+    return state;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case JP_COLN:
+            if (record->event.pressed) {
+                unregister_code(KC_LSFT);
+            } else {
+                if (get_mods() & MOD_MASK_SHIFT) register_code(KC_LSFT);
+                unregister_code(keycode);
+            }
+            return true;
+
+        case KC_LSFT:
+            if (record->event.pressed) {
+                register_code(keycode);
+
+                if (!(get_mods() & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) {
+                    layer_on(_SHIFT);
+                }
+            } else {
+                layer_off(_SHIFT);
+                unregister_code(keycode);
+            }
+            return false;
+    }
+
+    return true;
+}

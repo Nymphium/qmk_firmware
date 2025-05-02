@@ -1,6 +1,7 @@
 /* Copyright 2020 ZSA Technology Labs, Inc <@zsa>
  * Copyright 2020 Jack Humbert <jack.humb@gmail.com>
  * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+ * Copyright 2025 @Nymphium
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +20,26 @@
 #pragma once
 
 #define ORYX_CONFIGURATOR
+
 #define TAPPING_TERM 200
 
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    55
-#define MOUSEKEY_MAX_SPEED      6
-#define MOUSEKEY_WHEEL_DELAY 0
+#define MOUSEKEY_INERTIA
+#define MOUSEKEY_DELAY 0
+#undef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL 16
+#undef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED 24
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX 40
+#define MOUSEKEY_FRICTION 80
 
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 5
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY 0
+#define MOUSEKEY_WHEEL_INTERVAL 40
+#define MOUSEKEY_WHEEL_MAX_SPEED 12
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 12
+
+#undef BOOTMAGIC_ROW
+#define BOOTMAGIC_ROW 0
+#undef BOOTMAGIC_COLUMN
+#define BOOTMAGIC_COLUMN 0
