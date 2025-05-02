@@ -13,7 +13,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have receivecopy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -28,10 +28,10 @@
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 16
 #undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 24
+#define MOUSEKEY_MAX_SPEED 26
 #undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 40
-#define MOUSEKEY_FRICTION 80
+#define MOUSEKEY_TIME_TO_MAX 36
+#define MOUSEKEY_FRICTION 255
 
 #undef MOUSEKEY_WHEEL_DELAY
 #define MOUSEKEY_WHEEL_DELAY 0
