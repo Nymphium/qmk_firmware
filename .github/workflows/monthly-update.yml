@@ -22,7 +22,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ env.BRANCH }}
-          fetch-depth: 0
 
       - name: Setup Git
         run: |
@@ -34,9 +33,6 @@ jobs:
           git remote add upstream https://github.com/qmk/qmk_firmware.git || true
           git fetch upstream
           git rebase upstream/master
-
-      - name: Push rebased branch
-        run: git push --force-with-lease origin ${{ env.BRANCH }}
 
       - name: Set up QMK CLI
         run: |
@@ -65,3 +61,7 @@ jobs:
             ```
             ${{ steps.build.outputs.stderr }}
             ```
+
+      - name: Rebase and push upstream changes
+        if: steps.build.outcome == 'success'
+        run: git push --force-with-lease origin ${{ env.BRANCH }}
