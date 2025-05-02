@@ -1,0 +1,67 @@
+name: Monthly QMK Rebase & Build
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+jobs:
+  rebase_and_build:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: nymphium
+
+    steps:
+      - name: Checkout own repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ env.BRANCH }}
+          fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream and rebase
+        run: |
+          git remote add upstream https://github.com/qmk/qmk_firmware.git || true
+          git fetch upstream
+          git rebase upstream/master
+
+      - name: Push rebased branch
+        run: git push --force-with-lease origin ${{ env.BRANCH }}
+
+      - name: Set up QMK CLI
+        run: |
+          python3 -m pip install qmk
+          qmk setup --yes
+
+      - name: Build keymap
+        id: build
+        continue-on-error: true
+        run: |
+          for rule in zsa/moonlander:nymphium crkbd/rev4_1/standard:nymphium; do
+            make "$rule"
+          done
+
+      - name: Create Issue on build failure
+        if: steps.build.outcome != 'success'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "🚨 Monthly QMK build failed"
+          content: |
+            QMK monthly rebase and build failed!
+            Please check the latest upstream changes.
+
+            ### Build log:
+            ```
+            ${{ steps.build.outputs.stderr }}
+            ```
