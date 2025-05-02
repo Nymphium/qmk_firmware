@@ -29,10 +29,23 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Fetch upstream and rebase
+        id: rebase
+        continue-on-error: true
         run: |
-          git remote add upstream https://github.com/qmk/qmk_firmware.git || true
-          git fetch upstream
-          git rebase upstream/master
+          git remote add upstream https://github.com/qmk/qmk_firmware.git
+          git fetch upstream master
+          git rebase upstream/master 2>&1 | tee rebase.log
+
+      - name: Create Issue on rebase failure
+        if: steps.rebase.outcome != 'success'
+        uses: peter-eva;s/create-issue-from-file@v5
+        with:
+          token: ${{ secrets.GGITHUB_TOKEN }}
+          title: "🚨 Monthly QMK rebase failed for ${{ env.BRANCH }}"
+          content-filepath: ./rebase.log
+
+      - if: steps.rebase.outcome != 'success'
+        run: exit 0
 
       - name: Set up QMK CLI
         run: |
