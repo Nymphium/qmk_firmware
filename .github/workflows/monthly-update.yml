@@ -13,6 +13,7 @@ permissions:
 jobs:
   rebase_and_build:
     runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
     env:
       BRANCH: nymphium
 
